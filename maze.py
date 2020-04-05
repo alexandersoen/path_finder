@@ -14,6 +14,9 @@ class Maze:
         self.start = [pos for (pos, v) in layout.items() if v == 's'][0]  # Maybe I should fix something here
         self.end = [pos for (pos, v) in layout.items() if v == 'e'][0]
 
+        all_pos = layout.keys()
+        self.dimensions = tuple(map(lambda x: max(x) + 1, zip(*all_pos)))
+
         # Format maze layout
         self.layout = dict()
         for pos, cost in layout.items():
@@ -41,8 +44,8 @@ def load_from_file(f_loc):
     layout = dict()
     with open(f_loc, 'r') as f:
         reader = csv.reader(f)
-        for i, row in enumerate(reader):
-            for j, v in enumerate(row):
+        for j, row in enumerate(reader):
+            for i, v in enumerate(row):
                 layout[(i, j)] = v.strip()
 
     return layout

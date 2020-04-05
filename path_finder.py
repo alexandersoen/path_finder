@@ -18,6 +18,10 @@ class PathFinder:
         self.end_position = self.maze.get_end()
 
     def step_path_finder(self):
+
+        if self.is_finished():
+            return None
+
         avail_moves = dict()
         for pos in get_adjacent(*self.cur_position):
             # Check for walls
@@ -64,6 +68,12 @@ class PathFinder:
 
     def is_finished(self):
         return self.cur_position == self.end_position
+    
+    def get_maze(self):
+        return self.maze
+
+    def get_algorithm(self):
+        return self.algorithm
 
     def solve(self):
         i = 1
@@ -73,4 +83,5 @@ class PathFinder:
             i += 1
 
 def get_adjacent(x, y):
-    return [(i, j) for (i, j) in product(range(x-1, x+2), range(y-1, y+2)) if (x, y) != (i, j)]
+    return [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
+    #return [(i, j) for (i, j) in product(range(x-1, x+2), range(y-1, y+2)) if (x, y) != (i, j)]
