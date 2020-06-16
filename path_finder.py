@@ -13,7 +13,7 @@ class PathFinder:
         self.history = list()
         self.cost = 0
 
-        self.algorithm.reset(self.maze.get_start(), self.maze.get_end())
+        self.algorithm.reset(self.maze)
         self.cur_position = self.algorithm.cur_position
         self.end_position = self.maze.get_end()
 
@@ -22,17 +22,14 @@ class PathFinder:
         if self.is_finished():
             return None
 
-        avail_moves = dict()
-        for pos in get_adjacent(*self.cur_position):
-            # Check for walls
-            if self.maze[pos] is None:
-                continue
+        # Get available moves from the maze
+        avail_moves = self.maze.get_avail_moves(self.cur_position)
 
-            avail_moves[pos] = self.maze[pos]
-
+        ### Start timing code for algorithm
         start_time = datetime.now()
         next_move = self.algorithm.find_move(avail_moves)  # Find next move
         end_time = datetime.now()
+        ### Finish timing code for algorithm
 
         time_taken = (start_time - end_time).total_seconds()
 
@@ -81,7 +78,3 @@ class PathFinder:
             self.step_path_finder()
             print('Step: {}, Time: {:.2f}, From: {}, To: {}, Cost: {}'.format(i, *self.history[-1]))
             i += 1
-
-def get_adjacent(x, y):
-    return [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
-    #return [(i, j) for (i, j) in product(range(x-1, x+2), range(y-1, y+2)) if (x, y) != (i, j)]

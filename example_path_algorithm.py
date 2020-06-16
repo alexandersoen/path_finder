@@ -8,7 +8,8 @@ class ExamplePathAlgorithm(AbstractPathAlgorithm):
 
         self.visited = self.visited        # Updated automatically
         self.cur_position = self.cur_position  # Updated automatically
-	self.goal = self.goal              # Fixed for you to work towards
+        self.goal = self.goal              # Fixed for you to work towards
+        self.maze = self.maze
 
     def find_move(self, available_pos):
         # For you to do

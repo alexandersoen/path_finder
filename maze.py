@@ -39,6 +39,18 @@ class Maze:
     def get_end(self):
         return self.end
 
+    def get_avail_moves(self, cur_pos):
+        avail_moves = dict()
+        for pos in get_adjacent(*cur_pos):
+            # Check for walls
+            if self[pos] is None:
+                continue
+
+            avail_moves[pos] = self[pos]
+
+        return avail_moves
+
+
 def load_from_file(f_loc):
 
     layout = dict()
@@ -49,3 +61,7 @@ def load_from_file(f_loc):
                 layout[(i, j)] = v.strip()
 
     return layout
+
+def get_adjacent(x, y):
+    return [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
+    #return [(i, j) for (i, j) in product(range(x-1, x+2), range(y-1, y+2)) if (x, y) != (i, j)]

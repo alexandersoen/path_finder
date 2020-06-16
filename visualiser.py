@@ -95,10 +95,12 @@ class Visualiser:
 if __name__ == "__main__":
     from maze import Maze
     from greedy_path_algorithm import GreedyPathAlgorithm
+    from bfs_path_algorithm import BFSPathAlgorithm
     from path_finder import PathFinder
 
     maze = Maze('example_maze_1.csv')
-    algorithm = GreedyPathAlgorithm()
+    #algorithm = GreedyPathAlgorithm()
+    algorithm = BFSPathAlgorithm()
     path_finder = PathFinder(maze, algorithm)
 
     vis = Visualiser(800, 600)
